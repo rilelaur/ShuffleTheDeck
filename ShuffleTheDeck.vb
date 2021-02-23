@@ -10,28 +10,44 @@ Module ShuffleTheDeck
         Dim cardDrawn(3, 12) As Boolean
         Dim suitType As Integer
         Dim cardValue As Integer
+        Dim keepDrawing As Boolean = True
+        Dim UserInput As String
 
         Randomize()
 
+        Console.WriteLine("Type ""shuffle"" to shuffle the deck")
+        Console.WriteLine("Type ""quit"" to quit the program")
         Console.WriteLine("Press enter to draw a card." & vbCrLf)
 
-        Console.ReadLine()
+        While keepDrawing = True And UserInput <> "quit" And UserInput <> "shuffle"
+            If UserInput = "quit" Then
+                Console.Clear()
+                Console.WriteLine("Have a nice day.")
+                keepDrawing = False
+            End If
 
-        For cardSuit = 0 To 3
+            UserInput = Console.ReadLine()
+
+            For cardSuit = 0 To 3
             suitType = CInt(Rnd() * 3)
             For value = 0 To 12
                 cardValue = CInt(Rnd() * 12)
             Next
         Next
 
-        Console.WriteLine($"The card that you drew is, {Card(cardValue)} of {Suit(suitType)}.")
+            Console.WriteLine($"The card that you drew is the {Card(cardValue)} of {Suit(suitType)}." & vbCrLf)
 
-        Console.WriteLine(vbCrLf & "Press enter to draw another card.")
+            If UserInput = "quit" Then
+                Console.Clear()
+                Console.WriteLine("Have a nice day.")
+                keepDrawing = False
+            End If
+        End While
 
         Console.Read()
     End Sub
 
-    'Determines the suit drawn
+    'Determines the suit drawn either clubs, spades, hearts, or diamonds
     Function Suit(suitType As Integer) As String
         Select Case suitType
             Case 0
@@ -46,7 +62,7 @@ Module ShuffleTheDeck
                 Return CStr(suitType)
         End Select
     End Function
-    'Determines the card Value that is drawn
+    'Determines the card Value between Ace and King that is drawn
     Function Card(cardValue As Integer) As String
         Select Case cardValue
             Case 0
@@ -79,5 +95,6 @@ Module ShuffleTheDeck
                 Return CStr(cardValue)
         End Select
     End Function
+
 
 End Module
