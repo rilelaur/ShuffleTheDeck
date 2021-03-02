@@ -6,8 +6,9 @@ Option Strict On
 Module ShuffleTheDeck
 
     Sub Main()
-        Dim cardDraw(3, 12) As String
-        Dim cardDrawn(3, 12) As Boolean
+        Dim deck(3, 12) As Integer
+        Dim wasCardDrawn(3, 12) As Boolean
+        Dim cardDrawn As String
         Dim suitType As Integer
         Dim cardValue As Integer
         Dim keepDrawing As Boolean = True
@@ -29,13 +30,27 @@ Module ShuffleTheDeck
             UserInput = Console.ReadLine()
 
             For cardSuit = 0 To 3
-            suitType = CInt(Rnd() * 3)
-            For value = 0 To 12
-                cardValue = CInt(Rnd() * 12)
+                suitType = CInt(Rnd() * 3)
+                For value = 0 To 12
+                    cardValue = CInt(Rnd() * 12)
+                    cardDrawn = (suitType & cardValue)
+                    deck(cardSuit, value) = CInt(cardDrawn)
+                Next
             Next
-        Next
 
-            Console.WriteLine($"The card that you drew is the {Card(cardValue)} of {Suit(suitType)}." & vbCrLf)
+
+            If wasCardDrawn(suitType, cardValue) = True Then
+                wasCardDrawn(suitType, cardValue) = False
+            Else
+                For cardSuit = 0 To 3
+                    suitType = CInt(Rnd() * 3)
+                    For value = 0 To 12
+                        cardValue = CInt(Rnd() * 12)
+                    Next
+                Next
+            End If
+
+            Console.WriteLine($"The card that you drew is {cardValue} of {suitType}" & vbCrLf)
 
             If UserInput = "quit" Then
                 Console.Clear()
