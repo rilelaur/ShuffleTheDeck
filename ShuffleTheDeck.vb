@@ -1,4 +1,8 @@
 ﻿'Laura Riley
+'RCET 0265
+'Spring 2021
+'Shuffle The Deck
+'https://github.com/rilelaur/ShuffleTheDeck.git
 
 Option Explicit On
 Option Strict On
